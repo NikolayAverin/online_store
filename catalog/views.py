@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from configurations import APPEALS
 import json
+import csv
 
 
 def home_page(request):
@@ -15,5 +16,6 @@ def contacts(request):
         data_to_write = {"name": name, "phone": phone, "message": message}
         print(f'{name} просит связаться по номеру {phone}. Его вопрос: {message}')
         with open(APPEALS, "a") as file:
-            json.dump(data_to_write, file, indent=4)
+            fc = csv.DictWriter(file, fieldnames=data_to_write.keys())
+            fc.writerow(data_to_write)
     return render(request, 'catalog/contacts.html')
