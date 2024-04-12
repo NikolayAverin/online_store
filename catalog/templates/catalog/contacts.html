@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OffRoad Market</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+    <body>
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Off-Road Market</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Контакты</a>
+            </li>
+        </ul>
+        <div class="text-center mt-3">
+            <h1>Контакты</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-9 col-sm-offset-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>Страна</td>
+                                    <td>Россия</td>
+                                </tr>
+                                <tr>
+                                    <td>ИНН</td>
+                                    <td>1234567890</td>
+                                </tr>
+                                <tr>
+                                    <td>Адрес</td>
+                                    <td>г.Самара, Московское  ш. 1</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Обратная связь:</h4>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="name">Имя</label>
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone">Телефон</label>
+                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Контактный телефон" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message">Сообщение</label>
+                                    <textarea type="text" name="message" class="form-control" id="message" placeholder="Напишите вопрос" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 border-top">
+            <div class="col-3">
+              <p>Off-Road Market</p>
+              <p class="text-muted">&copy; 2024</p>
+            </div>
+            <div class="col-3">
+              <h5>Наши Услуги:</h5>
+              <ul class="list-unstyled">
+                <li class="list-group-item"><a href="#">Подбор оборудования</a></li>
+                <li class="list-group-item"><a href="#">Установка оборудования</a></li>
+                <li class="list-group-item"><a href="#">Отправка в регионы</a></li>
+              </ul>
+            </div>
+            <div class="col-3">
+              <h5>Мы в соц. сетях:</h5>
+              <ul class="list-unstyled">
+                  <li class="list-group-item"><a href="#">ВКонтакте</a></li>
+                  <li class="list-group-item"><a href="#">Telegram</a></li>
+                  <li class="list-group-item"><a href="#">Instagram</a></li>
+              </ul>
+            </div>
+            <div class="col-3">
+              <h5>О нас:</h5>
+              <ul class="list-unstyled">
+                  <li class="list-group-item"><a href="/contacts/">Контакты</a></li>
+              </ul>
+            </div>
+          </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>
