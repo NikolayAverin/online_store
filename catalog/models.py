@@ -20,9 +20,9 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание')
     price = models.IntegerField(verbose_name='Цена')
     photo = models.ImageField(upload_to='catalog/', **NULLABLE)
-    created_at = models.DateField(verbose_name='Дата создания')
-    updated_atзщ = models.DateField(verbose_name='Дата последнего изменения')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    created_at = models.DateField(verbose_name='Дата создания', **NULLABLE)
+    updated_at = models.DateField(verbose_name='Дата последнего изменения', **NULLABLE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', **NULLABLE)
 
     def __str__(self):
         return f'{self.name} - {self.price} руб'
