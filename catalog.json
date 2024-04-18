@@ -1,0 +1,39 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Лифт подвески",
+      "description": "Продукция для лифта подвески"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Силовые бампера",
+      "description": "Усиленные обвесы для автомобилей"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Лебедки",
+      "description": "Электрические лебедки для автомобилей"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Пружины +50мм",
+      "description": "Пружины для увеличения клиренса на 50мм",
+      "price": 10000,
+      "photo": "",
+      "created_at": "2024-04-18",
+      "updated_at": "2024-04-18",
+      "category": 1
+    }
+  }
+]
