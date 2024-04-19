@@ -31,9 +31,74 @@
       "description": "Пружины для увеличения клиренса на 50мм",
       "price": 10000,
       "photo": "",
-      "created_at": "2024-04-18",
-      "updated_at": "2024-04-18",
+      "created_at": null,
+      "updated_at": null,
       "category": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Удлиненные амортизаторы",
+      "description": "Устанавливаются при лифте автомобиля",
+      "price": 7500,
+      "photo": "",
+      "created_at": "2024-04-19",
+      "updated_at": "2024-04-19",
+      "category": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Силовой бампер передний",
+      "description": "Передний усиленный бампер с площадкой под лебедку",
+      "price": 35000,
+      "photo": "",
+      "created_at": "2024-04-19",
+      "updated_at": "2024-04-19",
+      "category": 2
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Силовой бампер задний",
+      "description": "Задний усиленный бампер с площадкой под лебедку и кронштейном запасного колеса",
+      "price": 45000,
+      "photo": "",
+      "created_at": "2024-04-19",
+      "updated_at": "2024-04-19",
+      "category": 2
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Электрическая лебедка 12V",
+      "description": "Лебедка для внедорожников с напряжением в бортовой сети 12В",
+      "price": 35000,
+      "photo": "",
+      "created_at": "2024-04-19",
+      "updated_at": "2024-04-19",
+      "category": 3
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Лебедка электрическая 24V",
+      "description": "Лебедка для внедорожников и грузовиков с напряжением в бортовой сети 24В",
+      "price": 50000,
+      "photo": "",
+      "created_at": "2024-04-19",
+      "updated_at": "2024-04-19",
+      "category": 3
     }
   }
 ]
