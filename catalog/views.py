@@ -1,11 +1,25 @@
 from django.shortcuts import render
+
+from catalog.models import Product
 from configurations import APPEALS
 import json
 import csv
 
 
 def home_page(request):
-    return render(request, 'catalog/home_page.html')
+    all_count = len(Product.objects.all())
+    if all_count <= 5:
+        context = {
+            'title': 'skystore',
+            'products': Product.objects.all()
+        }
+    else:
+        context = {
+            'title': 'skystore',
+            'products': Product.objects.all()[(all_count - 5):]
+        }
+    print(context['products'])
+    return render(request, 'catalog/home_page.html', context=context)
 
 
 def contacts(request):
