@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
-from catalog.models import Product
+from catalog.models import Product, Contact
 from configurations import APPEALS
-import json
 import csv
 
 
@@ -10,12 +9,12 @@ def home_page(request):
     all_count = len(Product.objects.all())
     if all_count <= 5:
         context = {
-            'title': 'skystore',
+            'title': 'off-road_store',
             'products': Product.objects.all()
         }
     else:
         context = {
-            'title': 'skystore',
+            'title': 'off-road_store',
             'products': Product.objects.all()[(all_count - 5):]
         }
     print(context['products'])
@@ -32,4 +31,9 @@ def contacts(request):
         with open(APPEALS, "a") as file:
             fc = csv.DictWriter(file, fieldnames=data_to_write.keys())
             fc.writerow(data_to_write)
-    return render(request, 'catalog/contacts.html')
+    elif request.method == 'GET':
+        context = {
+            'title': 'off-road_store',
+            'contacts': Contact.objects.all()[0]
+        }
+    return render(request, 'catalog/contacts.html', context=context)

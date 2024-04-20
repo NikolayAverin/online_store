@@ -80,7 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'off_road_store',
         'USER': 'postgres',
-        'PASSWORD': '111111'
+        'PASSWORD': '111111',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 

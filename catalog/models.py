@@ -32,3 +32,14 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
 
+class Contact(models.Model):
+    country = models.CharField(max_length=50, verbose_name='Страна')
+    inn = models.IntegerField(verbose_name='ИНН')
+    address = models.CharField(max_length=100, verbose_name='Адрес')
+
+    def __str__(self):
+        return f'{self.country}, {self.inn}, {self.address}'
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
