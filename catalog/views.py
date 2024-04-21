@@ -34,6 +34,6 @@ def contacts(request):
     elif request.method == 'GET':
         context = {
             'title': 'off-road_store',
-            'contacts': Contact.objects.all()[0]
+            'contacts': Contact.objects.last()
         }
     return render(request, 'catalog/contacts.html', context=context)
