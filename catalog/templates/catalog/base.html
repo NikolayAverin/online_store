@@ -1,0 +1,45 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  </head>
+  <body>
+  {% include 'catalog/includes/inc_menu.html' %}
+  {% block content %}
+  {% endblock %}
+
+  <div class="row mt-5 border-top">
+    <div class="col-3">
+      <p>Off-Road Market</p>
+      <p class="text-muted">&copy; 2024</p>
+    </div>
+    <div class="col-3">
+      <h5>Наши Услуги:</h5>
+      <ul class="list-unstyled">
+        <li class="list-group-item"><a href="#">Подбор оборудования</a></li>
+        <li class="list-group-item"><a href="#">Установка оборудования</a></li>
+        <li class="list-group-item"><a href="#">Отправка в регионы</a></li>
+      </ul>
+    </div>
+    <div class="col-3">
+      <h5>Мы в соц. сетях:</h5>
+      <ul class="list-unstyled">
+          <li class="list-group-item"><a href="#">ВКонтакте</a></li>
+          <li class="list-group-item"><a href="#">Telegram</a></li>
+          <li class="list-group-item"><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="col-3">
+      <h5>О нас:</h5>
+      <ul class="list-unstyled">
+          <li class="list-group-item"><a href="/contacts/">Контакты</a></li>
+      </ul>
+    </div>
+  </div>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

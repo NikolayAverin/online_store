@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product, Contact
 from configurations import APPEALS
@@ -6,18 +6,11 @@ import csv
 
 
 def home_page(request):
-    all_count = len(Product.objects.all())
-    if all_count <= 5:
-        context = {
-            'title': 'off-road_store',
-            'products': Product.objects.all()
-        }
-    else:
-        context = {
-            'title': 'off-road_store',
-            'products': Product.objects.all()[(all_count - 5):]
-        }
-    print(context['products'])
+    products = Product.objects.all()
+    context = {
+        'title': 'Off-Road Market',
+        'products': products
+    }
     return render(request, 'catalog/home_page.html', context=context)
 
 
@@ -33,7 +26,16 @@ def contacts(request):
             fc.writerow(data_to_write)
     elif request.method == 'GET':
         context = {
-            'title': 'off-road_store',
+            'title': 'Контакты',
             'contacts': Contact.objects.last()
         }
     return render(request, 'catalog/contacts.html', context=context)
+
+
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {
+        'title': 'Товар',
+        'products': product
+    }
+    return render(request, 'catalog/product_detail.html', context)
