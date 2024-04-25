@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from catalog.models import Product, Contact
+from catalog.models import Product, Contact, Category
 from configurations import APPEALS
 import csv
 
@@ -39,3 +39,12 @@ def product_detail(request, pk):
         'products': product
     }
     return render(request, 'catalog/product_detail.html', context)
+
+
+def add_product(request):
+    if request.method == 'GET':
+        categories = Category.objects.all()
+        context = {
+            'categories': categories
+        }
+        return render(request, 'catalog/add_product.html', context)
