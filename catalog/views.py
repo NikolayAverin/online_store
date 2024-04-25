@@ -1,3 +1,4 @@
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product, Contact, Category
@@ -48,6 +49,25 @@ def add_product(request):
             'categories': categories
         }
         return render(request, 'catalog/add_product.html', context)
+    elif request.method == 'POST' and request.FILES:
+        file = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(file.name, file)
+        file_url = fs.url(filename)
+        categories = Category.objects.all()
+        context = {
+            'file_url': file_url,
+            'categories': categories
+        }
+        name = request.POST.get('product_name')
+        description = request.POST.get('product_description')
+        price = request.POST.get('product_price')
+        photo = file_url[7:]
+        category_id = request.POST.get('product_id')
+        category = Category.objects.get(id=category_id)
+        Product.objects.create(name=name, description=description, price=price, photo=photo, category=category)
+        print(photo)
+        return render(request, 'catalog/add_product.html', context)
     elif request.method == 'POST':
         categories = Category.objects.all()
         context = {
@@ -56,8 +76,7 @@ def add_product(request):
         name = request.POST.get('product_name')
         description = request.POST.get('product_description')
         price = request.POST.get('product_price')
-        photo = request.POST.get('product_photo')
         category_id = request.POST.get('product_id')
         category = Category.objects.get(id=category_id)
-        Product.objects.create(name=name, description=description, price=price, photo=photo, category=category)
+        # Product.objects.create(name=name, description=description, price=price, photo=photo, category=category)
         return render(request, 'catalog/add_product.html', context)
