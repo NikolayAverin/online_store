@@ -48,3 +48,16 @@ def add_product(request):
             'categories': categories
         }
         return render(request, 'catalog/add_product.html', context)
+    elif request.method == 'POST':
+        categories = Category.objects.all()
+        context = {
+            'categories': categories
+        }
+        name = request.POST.get('product_name')
+        description = request.POST.get('product_description')
+        price = request.POST.get('product_price')
+        photo = request.POST.get('product_photo')
+        category_id = request.POST.get('product_id')
+        category = Category.objects.get(id=category_id)
+        Product.objects.create(name=name, description=description, price=price, photo=photo, category=category)
+        return render(request, 'catalog/add_product.html', context)
