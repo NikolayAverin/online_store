@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<div class="col-3">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="product_name">Название</label>
+            <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Введите название товара" required>
+        </div>
+        <div class="mb-3">
+            <label for="product_description">Описание</label>
+            <input type="text" name="product_description" class="form-control" id="product_description" placeholder="Введите описание товара" required>
+        </div>
+        <div class="mb-3">
+            <label for="product_price">Цена</label>
+            <input type="number" name="product_price" class="form-control" id="product_price" placeholder="Введите цену товара" required>
+        </div>
+        <div class="mb-3">
+          <label for="photo" class="form-label">Загрузите фотографию</label>
+          <input class="form-control" type="file" name="photo" id="photo">
+          <p>Ссылка: <a href="{{ file_url }}">{{ file_url }}</a></p>
+        </div>
+        <select class="form-select" name="product_id">
+          <option selected>Выберите категорию</option>
+          {% for category in categories %}
+          <option value="{{ category.id }}" id="product_id" name="product_id">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary mt-3">Добавить товар</button>
+    </form>
+</div>
+{% endblock %}
