@@ -1,0 +1,34 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="text-center mt-3">
+    <h1>Контакты</h1>
+</div>
+{% for contact in object_list %}
+<div class="container">
+    <div class="row">
+        <div class="col-9 col-sm-offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Страна</td>
+                            <td>{{ contact.country }}</td>
+                        </tr>
+                        <tr>
+                            <td>ИНН</td>
+                            <td>{{ contact.inn }}</td>
+                        </tr>
+                        <tr>
+                            <td>Адрес</td>
+                            <td>{{ contact.address }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% include 'catalog/includes/inc_feedback.html' %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
