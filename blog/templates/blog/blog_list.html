@@ -1,0 +1,33 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+<div class="text-center mt-3">
+  <h1>Off-Road Market</h1>
+  <p>Все записи из блога:</p>
+</div>
+<div class="container">
+  <div class="row text-center">
+    {% for object in object_list %}
+    <div class="col-6">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+        </div>
+        <div class="card-body">
+          <img src="{{ object.image | media_filter }}" class="rounded mx-auto d-block">
+          <h5 class="card-title pricing-card-title">{{ object.date }}</h5>
+          <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+            <li>{{ object.content | slice:":100" }}</li>
+          </ul>
+          <p>Количество просмотров: {{ object.views_count }}</p>
+          <a class="btn btn-primary" href="{% url 'blog:view' object.pk %}" role="button">Просмотреть</a>
+          <a class="btn btn-primary" href="{% url 'blog:edit' object.pk %}" role="button">Изменить</a>
+          <a class="btn btn-primary" href="{% url 'blog:delete' object.pk %}" role="button">Удалить</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
