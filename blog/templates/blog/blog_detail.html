@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="container">
+  <div class="row text-center">
+    <div class="col-9">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+        </div>
+        <div class="card-body">
+          <img src="{{ object.image | media_filter }}">
+          <h5 class="card-title pricing-card-title">{{ object.date }}</h5>
+          <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+            <li>{{ object.content }}</li>
+          </ul>
+          <p>Количество просмотров: {{ object.views_count }}</p>
+          <p>{{ object.slug }}</p>
+          <a class="btn btn-primary" href="{% url 'blog:edit' object.pk %}" role="button">Изменить</a>
+          <a class="btn btn-primary" href="{% url 'blog:list' %}" role="button">Назад</a>
+          <a class="btn btn-primary" href="{% url 'blog:delete' object.pk %}" role="button">Удалить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
