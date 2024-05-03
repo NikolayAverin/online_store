@@ -8,6 +8,7 @@ class Blog(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     views_count = models.IntegerField(default=0, verbose_name='Количество просмотров')
+    email = models.EmailField(verbose_name='Почта', null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.title
