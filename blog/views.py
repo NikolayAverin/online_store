@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
@@ -7,7 +9,7 @@ from blog.models import Blog
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content', 'image', 'email']
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
@@ -32,12 +34,16 @@ class BlogDetailView(DetailView):
         self.object = super().get_object(queryset)
         self.object.views_count += 1
         self.object.save()
+        if self.object.views_count == 100:
+            send_mail('Поздравляем, ваша запись просмотрена 100 раз!',
+                      f'Запись {self.object.title} просмотрена 100 раз!',
+                      settings.EMAIL_HOST_USER, [self.object.email])
         return self.object
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ['title', 'content', 'image', 'is_published']
+    fields = ['title', 'content', 'image', 'is_published', 'email']
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
