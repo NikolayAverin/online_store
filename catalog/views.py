@@ -1,14 +1,28 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from catalog.models import Product, Contact
+from catalog.forms import ProductForm, VersionForm
+from catalog.models import Product, Contact, Version
 from configurations import APPEALS
 import csv
 
 
 class ProductListView(ListView):
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+        for product in products:
+            versions = Version.objects.filter(product=product)
+            active_version = versions.filter(activity=True)
+            if active_version:
+                product.name_version = active_version.last().name
+                product.number_version = active_version.last().version
+        context['object_list'] = products
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -41,5 +55,31 @@ class ContactsListView(ListView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ("name", "description", "price", "photo", "category")
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:home_page')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home_page')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        ProductFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = ProductFormset(instance=self.object)
+        return context_data
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        formset = context_data['formset']
+        if form.is_valid() and formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form, formset=formset))
