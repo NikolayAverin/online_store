@@ -10,6 +10,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
+        """Чтение категорий из json-файла и возвращение списка слов"""
         with open(CATALOG) as file:
             result = json.load(file)
         result_list = []
@@ -20,6 +21,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_products():
+        """Чтение продуктов из json-файла и возвращение списка слов"""
         with open(CATALOG) as file:
             result = json.load(file)
         result_list = []
@@ -29,6 +31,7 @@ class Command(BaseCommand):
         return result_list
 
     def handle(self, *args, **options):
+        """Перенаполнение базы данных"""
         with connection.cursor() as cursor:
             cursor.execute('TRUNCATE TABLE catalog_category RESTART IDENTITY CASCADE;')
 

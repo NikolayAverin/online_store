@@ -4,6 +4,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Category(models.Model):
+    """Категория товара"""
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
 
@@ -16,6 +17,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """Товар"""
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     price = models.IntegerField(verbose_name='Цена')
@@ -32,20 +34,8 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
 
-class Contact(models.Model):
-    country = models.CharField(max_length=50, verbose_name='Страна')
-    inn = models.IntegerField(verbose_name='ИНН')
-    address = models.CharField(max_length=100, verbose_name='Адрес')
-
-    def __str__(self):
-        return f'{self.country}, {self.inn}, {self.address}'
-
-    class Meta:
-        verbose_name = 'Контакт'
-        verbose_name_plural = 'Контакты'
-
-
 class Version(models.Model):
+    """Версия товара"""
     product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
     version = models.IntegerField(verbose_name='Версия')
     name = models.CharField(max_length=100, verbose_name='Название версии')
@@ -57,3 +47,17 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
+
+
+class Contact(models.Model):
+    """Контакты"""
+    country = models.CharField(max_length=50, verbose_name='Страна')
+    inn = models.IntegerField(verbose_name='ИНН')
+    address = models.CharField(max_length=100, verbose_name='Адрес')
+
+    def __str__(self):
+        return f'{self.country}, {self.inn}, {self.address}'
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
