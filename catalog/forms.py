@@ -7,6 +7,7 @@ FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', '
 
 
 class StyleFormMixin:
+    """Стилизация формы"""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -22,12 +23,14 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         exclude = ('created_at', 'updated_at',)
 
     def clean_name(self):
+        """Валидация названия продукта"""
         cleaned_name = self.cleaned_data['name']
         if cleaned_name.lower() in FORBIDDEN_WORDS:
             raise forms.ValidationError('Нельзя использовать запрещенные слова')
         return cleaned_name
 
     def clean_description(self):
+        """Валидация описания продукта"""
         cleaned_description = self.cleaned_data['description']
         if cleaned_description.lower() in FORBIDDEN_WORDS:
             raise forms.ValidationError('Нельзя использовать запрещенные слова')

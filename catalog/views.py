@@ -13,6 +13,7 @@ class ProductListView(ListView):
     model = Product
 
     def get_context_data(self, **kwargs):
+        """Возвращение последней активной версии товара в списке товаров"""
         context = super().get_context_data(**kwargs)
         products = Product.objects.all()
         for product in products:
@@ -46,6 +47,7 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('catalog:home_page')
 
     def get_context_data(self, **kwargs):
+        """Добавление версий товара при редактировании товара"""
         context_data = super().get_context_data(**kwargs)
         ProductFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
         if self.request.method == 'POST':
@@ -55,6 +57,7 @@ class ProductUpdateView(UpdateView):
         return context_data
 
     def form_valid(self, form):
+        """Добавление версий товара при редактировании товара"""
         context_data = self.get_context_data()
         formset = context_data['formset']
         if form.is_valid() and formset.is_valid():
@@ -70,6 +73,7 @@ class ContactsListView(ListView):
     model = Contact
 
     def get_queryset(self):
+        """Выбор последней записи из таблицы контактов"""
         qs = super().get_queryset()
         max_pk = 0
         for item in qs:
@@ -79,6 +83,7 @@ class ContactsListView(ListView):
         return qs
 
     def post(self, request, *args, **kwargs):
+        """Запись заявки в csv файл и перенаправление на главную страницу"""
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
