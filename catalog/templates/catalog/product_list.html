@@ -15,11 +15,12 @@
             <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
           </div>
           <div class="card-body">
-            <img src="{{ product.photo | media_filter }}" class="rounded mx-auto d-block">
+            <img src="{{ product.photo | media_filter }}" class="rounded mx-auto d-block w-100">
             <h1 class="card-title pricing-card-title">{{ product.price }} руб</h1>
             <h3>{{ product.description | slice:":100" }}</h3>
             <ul class="list-unstyled mt-3 mb-4">
               <li>Версия номер {{ product.number_version }} - {{ product.name_version }}</li>
+              <li>Продавец: {{ product.seller }}</li>
             </ul>
             <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Просмотреть</a>
           </div>
