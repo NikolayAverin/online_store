@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'off_road_store',
         'USER': 'postgres',
-        'PASSWORD': '111111',
+        'PASSWORD': '........',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -143,7 +143,7 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'RizZzon11688@yandex.ru'
-EMAIL_HOST_PASSWORD = 'thymepbdhonwmemt'
+EMAIL_HOST_PASSWORD = '........'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
