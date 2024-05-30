@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Contact, Version
 from configurations import APPEALS
 import csv
@@ -50,7 +51,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home_page')
@@ -76,6 +77,15 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_form_class(self):
+        """Выбор формы для редактирования товара"""
+        user = self.request.user
+        if user == self.object.seller:
+            return ProductForm
+        if user.has_perm('catalog.can_deactivate') and user.has_perm('catalog.can_edit_description') and user.has_perm('catalog.can_edit_category'):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ContactsListView(ListView):
