@@ -28,6 +28,7 @@ class Product(models.Model):
     updated_at = models.DateField(verbose_name='Дата последнего изменения', auto_now=True, **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', **NULLABLE)
     seller = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='seller', **NULLABLE)
+    is_active = models.BooleanField(verbose_name='Прошел ли проверку', default=False)
 
     def __str__(self):
         return f'{self.name} - {self.price} руб'
@@ -35,6 +36,11 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+        permissions = [
+            ('can_deactivate', 'deactivate product'),
+            ('can_edit_description', 'edit description product'),
+            ('can_edit_category', 'edit category product'),
+        ]
 
 
 class Version(models.Model):

@@ -1,15 +1,17 @@
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
 
+from blog.forms import BlogForm, BlogModeratorForm
 from blog.models import Blog
 
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ['title', 'content', 'image', 'email']
+    form_class = BlogForm
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
@@ -61,6 +63,14 @@ class BlogUpdateView(UpdateView):
     def get_success_url(self):
         """Перенаправление на просмотр записи"""
         return reverse('blog:view', args=[self.kwargs.get('pk')])
+
+
+    def get_form_class(self):
+        """Выбор формы для редактирования блога"""
+        user = self.request.user
+        if user.has_perm('blog.can_deactivate'):
+            return BlogModeratorForm
+        raise PermissionDenied
 
 
 class BlogDeleteView(DeleteView):

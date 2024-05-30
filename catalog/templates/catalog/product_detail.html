@@ -15,7 +15,7 @@
             <li>{{ object.description }}</li>
           </ul>
           <a class="btn btn-primary" href="#" role="button">Купить</a>
-          {% if user.is_authenticated %}
+          {% if perms.catalog.can_deactivate and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == object.seller %}
           <a class="btn btn-primary" href="{% url 'catalog:update_product' object.pk %}" role="button">Изменить</a>
           <a class="btn btn-primary" href="{% url 'catalog:delete_product' object.pk %}" role="button">Удалить</a>
           {% endif %}
