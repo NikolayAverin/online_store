@@ -64,7 +64,6 @@ class BlogUpdateView(UpdateView):
         """Перенаправление на просмотр записи"""
         return reverse('blog:view', args=[self.kwargs.get('pk')])
 
-
     def get_form_class(self):
         """Выбор формы для редактирования блога"""
         user = self.request.user
