@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Contact, Version
+from catalog.models import Product, Contact, Version, Category
+from catalog.services import get_category_from_cache, get_products_from_cache
 from configurations import APPEALS
 import csv
 
@@ -26,6 +27,10 @@ class ProductListView(ListView):
                 product.number_version = active_version.last().version
         context['object_list'] = products
         return context
+
+    def get_queryset(self):
+        """Возвращение товаров из кэша"""
+        return get_products_from_cache()
 
 
 class ProductDetailView(DetailView):
@@ -112,3 +117,11 @@ class ContactsListView(ListView):
             fc = csv.DictWriter(file, fieldnames=data_to_write.keys())
             fc.writerow(data_to_write)
         return redirect(reverse_lazy('catalog:home_page'))
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        """Возвращение категорий из кэша"""
+        return get_category_from_cache()

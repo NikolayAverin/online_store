@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+<div class="text-center mt-3">
+  <h1>Off-Road Market</h1>
+  <p>Лидирующий магазин по продаже внедорожного тюнинга</p>
+</div>
+<div class="container">
+  <div class="row text-center">
+    {% for category in object_list %}
+      <div class="col-6">
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ category.name }}</h4>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title pricing-card-title">{{ category.description }}</h3>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
