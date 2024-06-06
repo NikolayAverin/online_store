@@ -20,7 +20,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('created_at', 'updated_at', 'seller')
+        exclude = ('created_at', 'updated_at', 'seller', 'is_active')
 
     def clean_name(self):
         """Валидация названия продукта"""
